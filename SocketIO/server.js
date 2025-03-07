@@ -38,6 +38,14 @@ io.on("connection", async(socket) => {
   }
   await allUsers();
 
+  const interval = setInterval(() => {
+    socket.emit("ping");  // Send a ping message to the client
+  }, 10000);  // Send ping every 10 seconds
+
+  // Listen for pong from the client
+  socket.on("pong", () => {
+    console.log("Pong received from client:", socket.id);
+  });
   
 
   // ✅ Listen for reconnection attempts
@@ -67,6 +75,7 @@ io.on("connection", async(socket) => {
 
   // ✅ Handle disconnection
   socket.on("disconnect", async() => {
+    clearInterval(interval);
     console.log("❌ User disconnected:", socket.id);
     delete users[userId];
     io.emit("getOnlineUsers", Object.keys(users));
