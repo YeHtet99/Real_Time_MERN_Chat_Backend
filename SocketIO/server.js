@@ -6,7 +6,7 @@ import User from "../models/user.model.js";
 
 const app = express();
 const server = http.createServer(app);
-const url = 'http://192.168.1.13:3001/';
+const url = 'http://192.168.1.51:3001/';
 
 const io = new Server(server, {
   cors: {

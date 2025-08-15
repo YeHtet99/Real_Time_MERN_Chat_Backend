@@ -16,7 +16,8 @@ app.use(cookieParser());
 app.use(cors());
 
 const PORT = process.env.PORT || 3001;
-const URI = process.env.MONGODB_URI;
+// const URI = process.env.MONGODB_URI;
+const URI = 'mongodb://127.0.0.1:27017/ChatApp?authMechanism=DEFAULT'
 
 try {
     mongoose.connect(URI);
