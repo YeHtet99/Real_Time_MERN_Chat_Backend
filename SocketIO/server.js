@@ -6,7 +6,8 @@ import User from "../models/user.model.js";
 
 const app = express();
 const server = http.createServer(app);
-const url = 'http://192.168.1.51:3001/';
+const url = 'http://192.168.1.33:3001/';
+// const url='http://localhost:3001'
 
 const io = new Server(server, {
   cors: {
@@ -16,11 +17,13 @@ const io = new Server(server, {
 });
 // realtime message code goes here
 export const getReceiverSocketId = (receiverId) => {
+  console.log("check",users[receiverId],users,receiverId)
   return users[receiverId];
 };
 const users = {};
 
 io.on("connection", async(socket) => {
+  console.log("socket",socket)
   console.log("🔗 A user connected:",socket.id);
 
 
@@ -76,8 +79,8 @@ io.on("connection", async(socket) => {
   // ✅ Handle disconnection
   socket.on("disconnect", async() => {
     clearInterval(interval);
-    console.log("❌ User disconnected:", socket.id);
-    delete users[userId];
+    // console.log("❌ User disconnected:", socket.id);
+    // delete users[userId];
     io.emit("getOnlineUsers", Object.keys(users));
     await allUsers()
   });
