@@ -35,18 +35,17 @@ io.on("connection", async(socket) => {
   await allUsers();
 
   const interval = setInterval(() => {
-    socket.emit("ping");  // Send a ping message to the client
-  }, 10000);  // Send ping every 10 seconds
+    socket.emit("ping");
+  }, 10000); 
 
-  // Listen for pong from the client
+  // Listen for pong 
   socket.on("pong", () => {
-    console.log("Pong received from client:", socket.id);
+    console.log("Pong received client:", socket.id);
   });
   
 
   socket.on("newMessage", (msg) => {
-    console.log(`📩 Received message: ${msg}`);
-    socket.emit("response", `📨 Server says: ${msg}`);
+    socket.emit("response", `Server says: ${msg}`);
   });
 
   socket.on("disconnect", async() => {
